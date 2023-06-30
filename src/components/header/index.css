@@ -1,0 +1,43 @@
+.headerWrapper{
+    display: flex;
+    background: #141523;
+    color: white;
+    width: 95%;
+    height: 56px;
+    padding: 10px 32px;
+}
+
+.logo {
+    max-height: 100%;
+    margin: 0 20px;
+}
+
+.menuHolder {
+    display: flex;
+    align-items: center;
+}
+
+.menuItem {
+    margin: 0 6px;
+    padding: 0 8px;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    /* border: 1px solid; */
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background-color .1s ease,transform .1s ease;
+}
+
+.menuItem:hover {
+    background: rgba(0,0,0,.6);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+#styledLink {
+    color: inherit;
+    text-decoration: none;
+}
