@@ -1,0 +1,35 @@
+.swiper-slide {
+  opacity: 0.3;
+  outline: none;
+  margin: 10px;
+  box-sizing: border-box;
+}
+
+.swiper-slide-active {
+  opacity: 1;
+  width: 800px;
+  cursor: pointer;
+}
+
+.swiper-pagination-bullet {
+  background-color: white;
+}
+
+.carouselImage {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+  border-radius: 2%;
+}
+
+.swiper-slide-active:hover {
+  opacity: 1;
+  transform: scale(1.01);
+  border: 2px solid white;
+  border-radius: 2%;
+}
+
+#styledLink {
+  color: white;
+  text-decoration: none;
+}
