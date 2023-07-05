@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { makeRequest } from "../../utils/httpUtils";
 import { constants } from "../../utils/constants";
 import Carousel from "../../components/carousel";
+import ShelfContainer from "../../components/shelfContainer";
+import Loader from "../../components/loader";
 
 import "./index.css";
 
@@ -12,8 +14,6 @@ const Home = () => {
   const [playListItems, setPlayListItems] = useState(undefined);
 
   useEffect(() => {
-    console.log("loaded Home");
-
     const getData = async () => {
       const users = await makeRequest(constants.configUrl + constants.appHome);
       // setData(users);
@@ -24,7 +24,7 @@ const Home = () => {
       }
     };
 
-    getData(); // run it, run it
+    getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -40,7 +40,16 @@ const Home = () => {
   };
 
   return (
-    <>{playListItems?.length > 0 && <Carousel items={playListItems?.[0]} />}</>
+    <>
+      {playListItems?.length > 0 ? (
+        <>
+          <Carousel items={playListItems?.[0]} />
+          <ShelfContainer items={playListItems} />
+        </>
+      ) : (
+        <Loader />
+      )}
+    </>
   );
 };
 export default Home;

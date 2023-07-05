@@ -5,7 +5,13 @@ import "./index.css";
 const Header = () => {
   return (
     <div className="headerWrapper">
-      <img src={logo} alt="open-logo" className="logo"></img>
+      <Link
+        to="/"
+        // style={{ textDecoration: "none" }}
+        id="styledLink"
+      >
+        <img src={logo} alt="open-logo" className="logo" />
+      </Link>
       <div className="menuHolder">
         <div className="menuItem">
           <span>

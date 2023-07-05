@@ -52,7 +52,7 @@ const Carousel = ({ items }) => {
                     alt={item.title}
                     className="carouselImage"
                   />
-                  <div className="title">{item?.title}</div>
+                  <div className="posterTitle">{item?.title}</div>
                 </div>
               </Link>
             </SwiperSlide>

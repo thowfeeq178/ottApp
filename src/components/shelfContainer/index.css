@@ -1,0 +1,8 @@
+.shelfRow {
+  display: flex;
+  width: fit-content;
+}
+
+.shelf {
+  padding: 14px 56px;
+}
