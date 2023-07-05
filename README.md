@@ -1,15 +1,18 @@
 # ottApp
-open Ott App
+open Ott App.
 
-# Getting Started with Create React App
+# Getting Started 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+to get the app running please clone the repo, and run
+### `npm install`
+this will install external npm modules needed.
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
