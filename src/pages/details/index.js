@@ -32,7 +32,7 @@ const Details = () => {
               <span>{" . "}</span>
               <span>{data?.duration + "s "}</span>
               <span>{" . "}</span>
-              <span>{data?.genre.toString()}</span>
+              <span>{data?.genre?.toString()}</span>
               <span>{" . "}</span>
               <span>{data?.rating}</span>
             </div>

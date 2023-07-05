@@ -11,7 +11,7 @@ const ShelfContainer = ({ items }) => {
       {renderItems.map((selfItem) => {
         return (
           <div className="shelf">
-            <div>{selfItem.title}</div>
+            <div className="shelfTitle">{selfItem.title}</div>
             <div className={"shelfRow " + selfItem.title}>
               <ShelfItems playlist={selfItem.playlist} />
             </div>
