@@ -22,6 +22,7 @@ function App() {
             <Route exact path="/movies" element={<Movies />} />
             <Route path="details/:detailsId" element={<Details />} />
             <Route path="player/:assetId" element={<Player />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Router>
       </FocusContext.Provider>
@@ -30,3 +31,11 @@ function App() {
 }
 
 export default App;
+
+function PageNotFound() {
+  return (
+    <div>
+      <h2>Page not found</h2>
+    </div>
+  );
+}

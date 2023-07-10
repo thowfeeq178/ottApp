@@ -30,7 +30,7 @@
   /* flex-direction: row; */
   flex-wrap: nowrap;
   align-items: center;
-  margin-right: 15px;
+  margin-right: 20px;
   cursor: pointer;
   transition: transform 0.2s ease-out, -webkit-transform 0.2s ease-out;
 }
