@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { makeRequest } from "../../utils/httpUtils";
 import { constants } from "../../utils/constants";
-import Carousel from "../../components/carousel";
+// import Carousel from "../../components/carousel";
 import ShelfContainer from "../../components/shelfContainer";
 import Loader from "../../components/loader";
 
@@ -43,7 +43,7 @@ const Home = () => {
     <>
       {playListItems?.length > 0 ? (
         <>
-          <Carousel items={playListItems?.[0]} />
+          {/* <Carousel items={playListItems?.[0]} /> */}
           <ShelfContainer items={playListItems} />
         </>
       ) : (
