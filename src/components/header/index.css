@@ -7,6 +7,10 @@
   padding: 10px 32px;
 }
 
+.logoWrapper {
+  max-height: 100%;
+  height: 100%;
+}
 .logo {
   max-height: 100%;
   margin: 0 20px;

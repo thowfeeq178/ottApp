@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
-// import VideoPlayback from "./shakaplayer";
+import VideoPlayback from "./shakaplayer";
 // This imports the functional component from the previous sample.
 import VideoJS from "./videoJs";
 import "./index.css";
@@ -14,6 +14,7 @@ const Player = () => {
   const data = location?.state?.data;
 
   const playbackData = data?.sources?.[0];
+  // console.log("playbackData", playbackData);
   const videoJsOptions = {
     autoplay: true,
     controls: true,
@@ -44,10 +45,39 @@ const Player = () => {
       console.log("player will dispose");
     });
   };
+  const onkeydown = (e) => {
+    console.log("onkeydown", e);
+    e?.stopPropagation?.();
+    if (e && (e?.keyCode === 8 || e?.keyCode === 10009)) {
+      window.history.back();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", onkeydown);
+    return () => {
+      document.removeEventListener("keydown", onkeydown);
+    };
+  }, []);
 
   return (
     <div className="videoPlayer">
-      <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
+      {/* <VideoJS
+        options={videoJsOptions}
+        onReady={handlePlayerReady}
+        className="video"
+      /> */}
+      {/* <video
+        className="video"
+        src={playbackData.file}
+        // src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+        // type={playbackData.type}
+        controls
+        autoplay
+        height="100%"
+        width="100%"
+      ></video> */}
+      <VideoPlayback url={playbackData.file} />
     </div>
   );
 };

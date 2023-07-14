@@ -1,7 +1,14 @@
-.videoPlayer{
-    position: absolute;
-    height:100%;
-    width:100%;
+.videoPlayer {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.video {
+  position: fixed;
+  background: black;
+  top: 0;
+  left: 0;
 }
 
 /* .video-js-responsive-container .video-js {
@@ -10,5 +17,5 @@
     
 } */
 .vjs_video_866-dimensions.vjs-fluid {
-    padding-top: 0 !important;
+  padding-top: 0 !important;
 }

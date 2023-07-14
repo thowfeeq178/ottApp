@@ -17,7 +17,7 @@ const ShelfContainer = ({ items }) => {
   });
 
   // remove the first item as they are in carousel
-  const renderItems = items.slice(2);
+  const renderItems = items; //.slice();
   // console.log("ShelfContainer playListItems, ", renderItems);
 
   return (
@@ -38,7 +38,7 @@ const ShelfContainer = ({ items }) => {
                 <div className="shelfTitle">{selfItem.title}</div>
                 <div className={"shelfRow " + selfItem.title}>
                   <ShelfItems
-                    ref={ref}
+                    // ref={ref}
                     playlist={selfItem.playlist}
                     parentClass={`shelf-${selfItem.title}`}
                     onFocus={onRowFocus}

@@ -8,12 +8,28 @@ const Details = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
+
+  const onkeydown = (e) => {
+    console.log("onkeydown", e);
+    if (e && (e?.keyCode === 8 || e?.keyCode === 10009)) {
+      window.history.back();
+      setFocus("Home");
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", onkeydown);
+    return () => {
+      document.removeEventListener("keydown", onkeydown);
+    };
+  }, []);
+
   const handlePlayButtonClick = () => {
     navigate("/player/:" + params?.detailsId, {
       state: { data: data },
     });
   };
-  const { ref, hasFocusedChild, focused, setFocus } = useFocusable({
+  const { ref, focused, setFocus } = useFocusable({
     onEnterPress: handlePlayButtonClick,
     focusKey: "playButton",
   });
@@ -55,12 +71,12 @@ const Details = () => {
             <div
               className="buttons"
               ref={ref}
-              hasFocusedChild={hasFocusedChild}
+              // hasFocusedChild={hasFocusedChild}
             >
               <button
                 ref={ref}
                 className={focused ? "button-focused" : "button"}
-                focusKey="playButton"
+                // focusKey="playButton"
                 onClick={handlePlayButtonClick}
                 onEnterPress={handlePlayButtonClick}
               >

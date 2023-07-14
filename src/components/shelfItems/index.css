@@ -30,7 +30,8 @@
   /* flex-direction: row; */
   flex-wrap: nowrap;
   align-items: center;
-  margin-right: 20px;
+  margin-right: 15px;
+  margin-left: 15px;
   cursor: pointer;
   transition: transform 0.2s ease-out, -webkit-transform 0.2s ease-out;
 }

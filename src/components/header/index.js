@@ -9,60 +9,51 @@ import {
 import "./index.css";
 
 const Header = () => {
-  const { focusKey, ref, hasFocusedChild } = useFocusable();
+  const { ref, focusKey } = useFocusable();
 
   return (
-    <div className="headerWrapper">
-      <FocusContext.Provider value={focusKey}>
-        <Link to="/" id="styledLink">
-          <img src={logo} alt="open-logo" className="logo" />
-        </Link>
-        <div className="menuHolder" ref={ref} hasFocusedChild={hasFocusedChild}>
-          <MenuItem focusID="home" name="Home" route="/" />
-          <MenuItem focusID="movies" name="Movies" route="/movies" />
+    <FocusContext.Provider value={focusKey}>
+      <div className="headerWrapper">
+        <div className="logoWrapper">
+          <Link to="/" id="styledLink">
+            <img src={logo} alt="open-logo" className="logo" />
+          </Link>
         </div>
-      </FocusContext.Provider>
-    </div>
+        <div className="menuHolder" ref={ref}>
+          <MenuItem name="Home" route="/" />
+          <MenuItem name="Movies" route="/movies" />
+        </div>
+      </div>
+    </FocusContext.Provider>
   );
 };
 export default Header;
 
-const MenuItem = ({ focusID, name, route }) => {
-  const onMenuEnterPress = (e) => {
-    console.log(e, ">><", getCurrentFocusKey());
-    if (getCurrentFocusKey() === "home") {
-      navigate("/");
-    } else if (getCurrentFocusKey() === "movies") {
-      navigate("/movies");
-    } else {
-      // default
-      navigate("/");
-    }
+const MenuItem = ({ name, route }) => {
+  const navigate = useNavigate();
+  const routeToMenu = (_) => {
+    _.route && navigate(_.route);
   };
 
-  const { ref, focused, setFocus, getCurrentFocusKey } = useFocusable({
-    onEnterPress: onMenuEnterPress,
-    focusKey: focusID,
+  const { ref, focused, setFocus, focusKey } = useFocusable({
+    onEnterPress: routeToMenu,
+    extraProps: { route },
+    focusKey: name,
   });
 
   useEffect(() => {
-    setFocus("home");
+    setFocus("Home");
   }, []);
 
-  const navigate = useNavigate();
-
   return (
-    <div
-      ref={ref}
-      className={focused ? "menuItem-focused" : "menuItem"}
-      focusKey={focusID}
-      onEnterPress={onMenuEnterPress}
-    >
-      <span>
-        <Link to={route} id="styledLink">
-          {name}
-        </Link>
-      </span>
-    </div>
+    <FocusContext.Provider value={focusKey}>
+      <div ref={ref} className={focused ? "menuItem-focused" : "menuItem"}>
+        <span>
+          <Link to={route} id="styledLink">
+            {name}
+          </Link>
+        </span>
+      </div>
+    </FocusContext.Provider>
   );
 };

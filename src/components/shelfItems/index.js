@@ -1,15 +1,23 @@
 import { useRef, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useFocusable } from "@noriginmedia/norigin-spatial-navigation";
+import {
+  FocusContext,
+  useFocusable,
+} from "@noriginmedia/norigin-spatial-navigation";
 
 import "./index.css";
 
 const ShelfItems = ({ playlist, parentClass }) => {
+  const { ref, focusKey } = useFocusable();
   return (
     playlist &&
     playlist.map((listItem, index) => {
       return (
-        <Item listItem={listItem} index={index} parentClass={parentClass} />
+        <FocusContext.Provider value={focusKey}>
+          <div ref={ref}>
+            <Item listItem={listItem} index={index} parentClass={parentClass} />
+          </div>
+        </FocusContext.Provider>
       );
     })
   );
@@ -23,7 +31,8 @@ export const Item = ({ listItem, index, parentClass }) => {
   const onAssetPress = () => {
     navigate("/details/" + getCurrentFocusKey(), { state: { data: listItem } });
   };
-
+  const focusIdentifier = `${mediaid} + ${Math.random()}`;
+  console.log("mediaid >> ", focusIdentifier, listItem);
   const onAssetFocus = useCallback(
     ({ x }) => {
       console.log("onAssetFocus,>>>>", x, parentClass);
@@ -35,17 +44,16 @@ export const Item = ({ listItem, index, parentClass }) => {
     [parentClass]
   );
 
-  const { ref, focused, getCurrentFocusKey } = useFocusable({
+  const { ref, focused, getCurrentFocusKey, focusKey } = useFocusable({
     onEnterPress: onAssetPress,
     onFocus: onAssetFocus,
-    focusKey: mediaid,
+    focusKey: focusIdentifier,
   });
 
   return (
     <div
       ref={ref}
       className={focused ? "shelfItemContainer-focused" : "shelfItemContainer"}
-      focusKey={mediaid}
       onEnterPress={onAssetPress}
       onFocus={onAssetFocus}
     >
