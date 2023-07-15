@@ -1,22 +1,28 @@
 import { useEffect, useRef } from "react";
 import shaka from "shaka-player";
+import muxjs from "mux.js";
 
 let player = null;
+window.muxjs = muxjs;
 
 const VideoPlayback = ({ url }) => {
+  // shaka.polyfill.installAll();
   const video = useRef(undefined);
   useEffect(() => {
     // Install built-in polyfills to patch browser incompatibilities.
-    console.log("url", url);
+    // console.log("url>>>>", url);
     shaka.polyfill.installAll();
     initPlayer();
+
+    return () => {
+      player.destroy();
+    };
   }, []);
 
   const initPlayer = () => {
     player = new shaka.Player(video.current);
-
     player
-      .load("https://cdn.jwplayer.com/manifests/bR6PIUlC.m3u8")
+      .load(url)
       .then(function () {
         // This runs if the asynchronous load is successful.
         console.log("The video has now been loaded! ");
@@ -39,8 +45,14 @@ const VideoPlayback = ({ url }) => {
 
   return (
     <div>
-      <h2>Player</h2>
-      <video ref={video} width="640" controls autoPlay />
+      <video
+        ref={video}
+        width="100%"
+        height="100%"
+        controls
+        autoPlay
+        className="video"
+      />
     </div>
   );
 };

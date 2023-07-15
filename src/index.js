@@ -1,29 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import Home from "./pages/home";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Movies from "./pages/movies";
-import Header from "./components/header";
-import Details from "./pages/details";
-import Player from "./pages/player";
+import App from "./App";
+import { init, setKeyMap } from "@noriginmedia/norigin-spatial-navigation";
 
+init({
+  // options
+  throttle: 550,
+  throttleKeypresses: true,
+  // visualDebug: true,
+  // debug: true,
+});
+
+setKeyMap({
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40,
+  enter: 13,
+});
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(
-  <div>
-    <Router>
-      <Header />
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/movies" element={<Movies />} />
-        <Route path="details/:detailsId" element={<Details />} />
-        <Route path="player/:assetId" element={<Player />} />
-      </Routes>
-    </Router>
-  </div>
-);
+root.render(<App />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

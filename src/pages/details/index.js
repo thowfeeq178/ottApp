@@ -2,11 +2,38 @@ import { useLocation, useParams, useNavigate } from "react-router-dom";
 import playIcon from "../../assets/play-icon.png";
 import "./index.css";
 import { useEffect } from "react";
+import { useFocusable } from "@noriginmedia/norigin-spatial-navigation";
 
 const Details = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
+
+  const onkeydown = (e) => {
+    console.log("onkeydown", e);
+    if (e && (e?.keyCode === 8 || e?.keyCode === 10009)) {
+      window.history.back();
+      setFocus("Home");
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", onkeydown);
+    return () => {
+      document.removeEventListener("keydown", onkeydown);
+    };
+  }, []);
+
+  const handlePlayButtonClick = () => {
+    navigate("/player/:" + params?.detailsId, {
+      state: { data: data },
+    });
+  };
+  const { ref, focused, setFocus } = useFocusable({
+    onEnterPress: handlePlayButtonClick,
+    focusKey: "playButton",
+  });
+
   const data = location?.state?.data;
   const hdImage = data?.images.find(
     (element) => element.width === 1280 && element.type === "image/jpeg"
@@ -18,7 +45,11 @@ const Details = () => {
     if (!data) {
       navigate("/");
     }
-  }, [data]);
+  }, [data, navigate]);
+
+  useEffect(() => {
+    setFocus("playButton");
+  }, []);
 
   return (
     <div className="detailsWrapper">
@@ -37,14 +68,17 @@ const Details = () => {
               <span>{data?.rating}</span>
             </div>
             <div className="textDiscription">{data?.description}</div>
-            <div className="buttons">
+            <div
+              className="buttons"
+              ref={ref}
+              // hasFocusedChild={hasFocusedChild}
+            >
               <button
-                className="button"
-                onClick={() => {
-                  navigate("/player/:" + params?.detailsId, {
-                    state: { data: data },
-                  });
-                }}
+                ref={ref}
+                className={focused ? "button-focused" : "button"}
+                // focusKey="playButton"
+                onClick={handlePlayButtonClick}
+                onEnterPress={handlePlayButtonClick}
               >
                 <span className="icon">
                   <img src={playIcon} alt="play" className="iconImg" />
